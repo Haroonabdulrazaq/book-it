@@ -11,9 +11,8 @@ const dbConnect = async () => {
       DB_URI = process.env.DB_LOCAL_URI!;
       break;
     case "production":
-      DB_URI = process.env.DB_URI!;
+      DB_URI = process.env.DB_URI!; // the ! bang sign tell typeScript is not going to be null/undefined
       break;
-
     default:
       DB_URI = process.env.DB_LOCAL_URI!;
       break;
