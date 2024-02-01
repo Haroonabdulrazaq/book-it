@@ -20,7 +20,7 @@ const dbConnect = async () => {
 
   await mongoose
     .connect(DB_URI)
-    .then(() => console.log("DB connected successfully"));
+    .then(() => console.log("DB is connected successfully"));
 };
 
 export default dbConnect;
