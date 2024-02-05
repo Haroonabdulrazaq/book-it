@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import Room from "../models/room";
-import { Source_Sans_3 } from "next/font/google";
 
 export const allRooms = async (req: NextRequest) => {
-  return Response.json({ message: "Ghulam is trying!" });
+  const rooms = await Room.find();
+  return Response.json({ sucess: true, rooms });
 };
 
 export const newRoom = async (req: NextRequest) => {

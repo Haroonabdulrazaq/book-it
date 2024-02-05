@@ -118,9 +118,9 @@ const roomSchema: Schema = new Schema({
   ],
   category: {
     type: String,
-    required: true,
+    required: false,
     enum: {
-      values: ["King Size", "Single", "Twin", "Adult", "Children"],
+      values: ["King", "Single", "Twins", "Adult", "Children"],
       message: "Please select correct category for room",
     },
   },
@@ -143,7 +143,7 @@ const roomSchema: Schema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
