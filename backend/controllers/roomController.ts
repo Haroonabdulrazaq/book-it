@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import Room from "../models/room";
 import { catchAsyncErrors } from "../middlewares/catchAsyncError";
+import ErrorHandler from "../utils/errorHandler";
 
 interface IParams {
   params: { id: string };
@@ -27,7 +28,7 @@ export const getRoomDetails = catchAsyncErrors(
   async (req: NextRequest, { params }: IParams) => {
     const room = await Room.findById(params.id);
     if (!room) {
-      return Response.json({ message: "Room not found" }, { status: 404 });
+      throw new ErrorHandler("Room not found", 404);
     }
     return Response.json({ success: true, room });
   }
@@ -40,12 +41,7 @@ export const updateRoom = catchAsyncErrors(
     const body = await req.json();
 
     if (!room) {
-      return Response.json(
-        {
-          message: "Room not found",
-        },
-        { status: 404 }
-      );
+      throw new ErrorHandler("Room not found", 404);
     }
 
     room = await Room.findByIdAndUpdate(params.id, body, { new: true });
@@ -63,12 +59,7 @@ export const deleteRoom = catchAsyncErrors(
     let room = await Room.findById(params.id);
 
     if (!room) {
-      return Response.json(
-        {
-          message: "Room not found",
-        },
-        { status: 404 }
-      );
+      throw new ErrorHandler("Room not found", 404);
     }
     //Delete Associted Images with the room
     room = await Room.findByIdAndDelete(params.id);
